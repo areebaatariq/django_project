@@ -35,6 +35,10 @@ staticfiles/
 .DS_Store
 Thumbs.db
 
+# Assignment brief (local only)
+Remote Backend Django Engineer*.pdf
+*.pdf
+
 # Test / coverage
 .pytest_cache/
 .coverage
