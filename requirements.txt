@@ -1,0 +1,4 @@
+Django>=5.2
+djangorestframework>=3.17
+requests>=2.31
+folium>=0.20
