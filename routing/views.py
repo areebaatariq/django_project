@@ -81,7 +81,14 @@ class RouteMapView(APIView):
             route, _external_calls = _resolve_route(start, finish)
             profile = build_route_profile(route["coordinates"])
             optimization = optimize_fuel_stops(profile, route["distance_miles"])
-            html = generate_route_map(route["coordinates"], start, finish, optimization["fuel_stops"])
+            html = generate_route_map(
+                route["coordinates"],
+                start,
+                finish,
+                optimization["fuel_stops"],
+                total_distance_miles=route["distance_miles"],
+                total_fuel_cost=optimization["total_fuel_cost"],
+            )
         except ValueError as exc:
             return Response({"error": str(exc)}, status=status.HTTP_400_BAD_REQUEST)
         except requests.RequestException:
@@ -90,4 +97,4 @@ class RouteMapView(APIView):
                 status=status.HTTP_503_SERVICE_UNAVAILABLE,
             )
 
-        return HttpResponse(html)
+        return HttpResponse(html, content_type="text/html; charset=utf-8")
