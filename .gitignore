@@ -39,6 +39,10 @@ Thumbs.db
 Remote Backend Django Engineer*.pdf
 *.pdf
 
+# Local helper files (not for repo)
+LOOM_SCRIPT.md
+scripts.ps1
+
 # Test / coverage
 .pytest_cache/
 .coverage
