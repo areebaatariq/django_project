@@ -19,20 +19,32 @@ Django REST API that calculates the most cost-effective fuel stops for US drivin
 - Nominatim for geocoding
 - Folium for map rendering
 
-## Setup
+## Setup (quick start)
+
+The repo includes a pre-loaded `db.sqlite3` with all **6,855** fuel stations already imported and geocoded, so reviewers can run the API immediately without waiting for CSV import.
 
 ```bash
 cd "django pro"
 python -m venv venv
-venv\Scripts\activate
+venv\Scripts\activate          # Windows
+# source venv/bin/activate     # Mac/Linux
 pip install -r requirements.txt
 python manage.py migrate
-python manage.py load_fuel_data fuel-prices-for-be-assessment.csv --per-state 15 --clear
-python manage.py backfill_geocodes
 python manage.py runserver
 ```
 
-For the full dataset, run the import without `--limit`. Geocoding is cached by city/state, so repeat imports are faster.
+Then open Postman and call `POST http://127.0.0.1:8000/api/route/`.
+
+## Re-import from CSV (optional)
+
+Only needed if you want to rebuild the database from scratch:
+
+```bash
+python manage.py load_fuel_data fuel-prices-for-be-assessment.csv --clear
+python manage.py backfill_geocodes
+```
+
+**Note:** Full import geocodes thousands of city/state pairs via Nominatim and can take **1–2 hours** because of rate limits. The included `db.sqlite3` avoids that step.
 
 ## API Endpoints
 
